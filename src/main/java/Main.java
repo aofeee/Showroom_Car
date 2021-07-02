@@ -3,12 +3,14 @@
 public class Main {
     public static void main(String[] args) {
 
-        final Showroom NISSAN = new Showroom("NISSAN");
+        final Showroom showroom = new Showroom();
 
-        new Thread(null, NISSAN::sellAuto, "Покупатель Виктор").start();
-        new Thread(null, NISSAN::sellAuto, "Покупатель Дмитрий").start();
-        new Thread(null, NISSAN::sellAuto, "Покупатель Станислав").start();
+            new Thread(null, showroom::sellAuto, "Покупатель Виктор").start();
+            new Thread(null, showroom::sellAuto, "Покупатель Дмитрий").start();
+            new Thread(null, showroom::sellAuto, "Покупатель Егор").start();
 
-        new Thread(null, NISSAN::acceptAuto, "Производитель NISSAN-MOTORS").start();
+        new Thread(null, showroom::acceptAuto, "Производитель NISSAN-MOTORS").start();
+
+
     }
 }
