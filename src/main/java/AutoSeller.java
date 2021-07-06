@@ -1,6 +1,10 @@
+import java.util.logging.Logger;
+
 public class AutoSeller {
 
     private final Showroom showroom;
+    Logger log = Logger.getLogger("Log");
+
 
     public AutoSeller(Showroom showroom) {
         this.showroom = showroom;
@@ -9,29 +13,31 @@ public class AutoSeller {
     public Auto sellAuto() {
         try {
             synchronized (showroom.autoSeller) {
-                System.out.println(Thread.currentThread().getName() + " зашел в автосалон");
-                while (showroom.auto.size() == 0) {
-                    System.out.println("Машин нет!!!");
-                    wait();
+                if (showroom.getAuto().size() == 0) {
+                    System.out.println("Машин нет! " + Thread.currentThread().getName() + " ожидает поставки...");
                 }
-                Thread.sleep(1000);
-                System.out.println(Thread.currentThread().getName() + " уехал на новом NISSAN");
+                wait();
+                Thread.sleep(showroom.timeSellCar);
+                System.out.println("Продавец: автомобиль продан. " + Thread.currentThread().getName() + " приобрел автомобиль!!!");
+                showroom.increaseSoldCarsNumber();
             }
-        } catch(InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return showroom.auto.remove(0);
+        return showroom.soldCar();
     }
 
-
     public synchronized void receiveAuto() {
-        try {
-                Thread.sleep(7000);
+            try {
+                Thread.sleep(showroom.timeCollectCar);
                 System.out.println(Thread.currentThread().getName() + " выпустил 1 автомобиль!");
-                Thread.sleep(600);
                 showroom.getAuto().add(new Auto());
+                Thread.sleep(showroom.timeDeliveryCar);
+                System.out.println("Доставка автомобиля в салон...");
+                Thread.sleep(showroom.timeAcceptCar);
+                System.out.println("Автомобиль принят! Готов к продаже!");
                 notify();
-        } catch (InterruptedException e) {
+        } catch(InterruptedException e){
             e.printStackTrace();
         }
     }
