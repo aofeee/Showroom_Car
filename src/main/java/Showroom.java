@@ -15,7 +15,7 @@ public class Showroom {
     }
 
     final AutoSeller autoSeller = new AutoSeller(this);
-    List<Auto> auto = new ArrayList<>();
+    List<Auto> auto = new ArrayList<>(2);
 
     public Auto sellAuto() {
         System.out.println(Thread.currentThread().getName() + " входит в автосалон.....");

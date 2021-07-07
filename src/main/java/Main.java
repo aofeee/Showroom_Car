@@ -5,12 +5,11 @@ public class Main {
 
         final Showroom showroom = new Showroom();
 
-        ThreadGroup group = new ThreadGroup("Покупатели");
+        new Thread(null, showroom::sellAuto, "Виктор").start();
+        new Thread(null, showroom::sellAuto, "Сергей").start();
+        new Thread(null, showroom::sellAuto, "Антуан").start();
 
-        new Thread(group, showroom::sellAuto, "Покупатель Виктор").start();
-        new Thread(group, showroom::sellAuto, "Покупатель Дмитрий").start();
-        new Thread(group, showroom::sellAuto, "Покупатель Егор").start();
-        new Thread(null, showroom::acceptAuto, "Производитель NISSAN-MOTORS").start();
+   new Thread(null, showroom::acceptAuto, "Производитель HONDA MOTORS").start();
 
-        }
     }
+}
