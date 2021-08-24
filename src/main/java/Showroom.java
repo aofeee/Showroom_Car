@@ -1,25 +1,22 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class Showroom {
 
-    int timeCollectCar = 6000;
-    int timeDeliveryCar = 2000;
-    int timeSellCar = 1500;
-    int timeAcceptCar = 1000;
+    final int TIME_COLLECT_CAR = 6000;
+    final int TIME_DELIVERY_CAR = 2000;
+    final int TIME_SELL_CAR = 1500;
+    final int TIME_ACCEPT_CAR = 1000;
     int soldCars = 0;
-    int planSales = 10;
 
     public Showroom() {
     }
 
     final AutoSeller autoSeller = new AutoSeller(this);
-    List<Auto> auto = new ArrayList<>(2);
+    List<Auto> auto = new ArrayList<>(10);
 
-    public Auto sellAuto() {
-        System.out.println(Thread.currentThread().getName() + " входит в автосалон.....");
-        return autoSeller.sellAuto();
+    public void sellAuto() {
+        autoSeller.sellAuto();
     }
 
     public void acceptAuto() {
@@ -34,11 +31,7 @@ public class Showroom {
         soldCars++;
     }
 
-    public boolean planIsDone() {
-        return soldCars >= planSales;
-    }
-
-    public Auto soldCar() {
-        return auto.remove(0);
+    public void soldCar() {
+        auto.remove(0);
     }
 }
