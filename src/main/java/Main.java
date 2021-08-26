@@ -1,18 +1,14 @@
-
-
 public class Main {
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws InterruptedException {
 
         final Showroom showroom = new Showroom();
 
-
-            // Потоки покупатели
-            new Thread(null, showroom::sellAuto, "Виктор").start();
-            new Thread(null, showroom::sellAuto, "Сергей").start();
-            new Thread(null, showroom::sellAuto, "Антон").start();
-
-            // Поток производитель
-            new Thread(null, showroom::acceptAuto, "Производитель HONDA MOTORS").start();
+        for (int i = 1; i <= 10; i++) {
+            Thread.sleep(3000);
+            new Thread(null, showroom::sellCar, "Покупатель " + i).start();
+            new Thread(null, showroom::genereteCar, "Продавец").start();
         }
-    }
 
+    }
+}
